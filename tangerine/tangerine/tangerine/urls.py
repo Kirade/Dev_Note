@@ -22,6 +22,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
     # localhost:port 로 접근하는 모든 내용을 'web.urls'에서 처리하도록 라우팅
-    url(r'^$',include('web.urls')),
+    url(r'^', include('web.urls')),
 
 ]
