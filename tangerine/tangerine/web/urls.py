@@ -30,8 +30,15 @@ from django.conf.urls import url
 
 from . import views
 
+app_name = 'web'
 urlpatterns = [
-    url(r'^$', views.IndexView.as_view(), name='index')
+    url(r'^$', views.IndexView.as_view(), name='index'),
+    url(r'^detail/(?P<pk>[0-9]+)/$', views.ProductView.as_view(), name="detail"),
+    url(r'^intro/$', views.IntroView.as_view(), name="intro"),
+    url(r'^board/$', views.BoardView.as_view(), name="board"),
+    url(r'^mypage/(?P<client_id>[0-9]+)/$', views.check_id, name="check_id"),
+#    url(r'^mypage/(?P<pk>[0-9]+)/$', views.MypageView.as_view(), name="mypage"),
+
 ]
 
 

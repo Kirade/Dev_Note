@@ -1,0 +1,12 @@
+{% extends 'web/base.html' %}
+
+{% block content %}
+
+    해당 상품의 ID 값은 {{ product.id }} 입니다. <br/>
+    해당 상품의 가격은 {{ product.price }}원 입니다. <br/>
+    해당 상품은 {{ product.inventory }}개 남아있습니다.<br/>
+    상품의 내용은 다음과 같습니다. : {{ product.detail }}<br/>
+    <br/>
+    <a href="{% url 'web:index' %}">인덱스 페이지</a>
+
+{%  endblock %}

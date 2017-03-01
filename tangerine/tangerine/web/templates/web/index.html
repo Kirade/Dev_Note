@@ -1,7 +1,28 @@
 {%  extends 'web/base.html' %}
 
 {% block content %}
-Hi! This is index page of website.
-템플릿 뷰를 사용하였습니다. ( TemplateView )
-{% endblock content %}
+    Hi! This is index page of website. 리스트 뷰를 사용하였습니다. ( ListView )<br/>
 
+    <nav>
+        <ul>
+            <li><a href="{% url 'web:index' %}">홈페이지</a></li>
+            <li><a href="{% url 'web:intro' %}">농장 소개</a></li>
+            <li><a href="{% url 'web:board' %}">게시판</a></li>
+
+            <!-- 마이페이지 연결 시, 접속한 회원의 클라이언트 ID를 알아내서 밑에 url 태그에 인자로 추가해서 넣어야한다. -->
+            <li><a href="{% url 'web:check_id' 1 %}">마이페이지</a></li>
+        </ul>
+    </nav>
+
+    {% if product_list %}
+        <ul>
+        {% for product in product_list %}
+            <li><a href="{% url 'web:detail' product.id %}">{{ product.name }}</a></li>
+        {% endfor %}
+        </ul>
+
+    {% else %}
+        <p> No Product's are available.</p>
+    {% endif %}
+
+{% endblock content %}

@@ -1,16 +1,76 @@
 # coding=utf-8
-
-from django.shortcuts import render
-from django.http import HttpResponse
+import json
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect
 from django.views import generic
+from django.urls import reverse
+from .models import Product, Client, Board
 
 
-class IndexView(generic.TemplateView):
+class IndexView(generic.ListView):
     """
     데이터를 나열하는 것을 포함하지 않는
     일반적인 뷰를 보여주기 위해서 TemplateView 클래스를 사용한다.
     """
     template_name = 'web/index.html'
+    context_object_name = 'product_list'
+
+    # 제고 수량이 없으면 인덱스 페이지에서 아예 없애는 것이 아니라, 재고 없음으로 표시할 수 있게 만들자
+    def get_queryset(self):
+        return Product.objects.filter(
+
+        )
+
+
+class ProductView(generic.DetailView):
+    """
+    데이터의 세부사항을 표현하기위해
+    DetailView 클래스를 사용한다.
+    """
+    model = Product
+    template_name = 'web/detail.html'
+
+    def get_queryset(self):
+        return Product.objects.filter(
+            # 필터기능 - 필요하면 추가
+        )
+
+
+class IntroView(generic.TemplateView):
+    template_name = 'web/intro.html'
+
+
+class BoardView(generic.ListView):
+    template_name = 'web/board.html'
+
+    def get_queryset(self):
+        return Board.objects.filter(
+
+        )
+
+"""
+class MypageView(generic.DetailView):
+    model = Client
+    template_name = 'web/mypage.html'
+
+    def get_queryset(self):
+        return Client.objects.filter(
+
+        )
+"""
+
+def check_id(request, client_id):
+    client = get_object_or_404(Client, pk=client_id)
+
+    #test_session = json.dumps(request.session)
+
+    return render(request,'web/mypage.html', {
+        'client_id': client_id,
+        'message': "message context에 들어간 정보입니다.",
+        #'session': test_session
+    })
+    # return HttpResponseRedirect(reverse('web:mypage', args=(client.id,)))
+
 
 """
 

@@ -8,7 +8,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 class ClientAdmin(admin.ModelAdmin):
-    fields = ['name', 'login_id', 'login_password', 'address', 'contact', 'email', 'register_date']
+    fields = ['user', 'address', 'contact']
 
 
 class BoardAdmin(admin.ModelAdmin):
