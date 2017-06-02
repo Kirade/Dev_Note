@@ -1,11 +1,12 @@
 # coding=utf-8
 import json
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
 from django.views import generic
-from django.urls import reverse
-from .models import Product, Client, Board
-
+from .models import Product, Board
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse, reverse_lazy
 
 class IndexView(generic.ListView):
     """
@@ -48,6 +49,17 @@ class BoardView(generic.ListView):
 
         )
 
+
+class UserCreateView(generic.edit.CreateView):
+    template_name = 'web/registration/register.html'
+    form_class = UserCreationForm
+    success_url = reverse_lazy('register_ok')
+
+
+class UserCreateDone(generic.TemplateView):
+    template_name = 'web/registration/register_ok.html'
+
+
 """
 class MypageView(generic.DetailView):
     model = Client
@@ -59,17 +71,42 @@ class MypageView(generic.DetailView):
         )
 """
 
-def check_id(request, client_id):
-    client = get_object_or_404(Client, pk=client_id)
 
-    #test_session = json.dumps(request.session)
 
-    return render(request,'web/mypage.html', {
-        'client_id': client_id,
-        'message': "message context에 들어간 정보입니다.",
+def register(request):
+    """
+    회원 가입 기능
+    """
+    if request.method == 'POST':
+        userform = UserCreationForm(request.POST)
+        if userform.is_valid():
+            userform.save()
+
+            return HttpResponseRedirect(
+                reverse('register_ok')
+            )
+    else:
+        userform = UserCreationForm()
+
+    return render(request, "web/registration/register.html", {
+        "userform": userform,
+    })
+
+    #return render(request, 'web/registration/register.html')
+
+
+def login(request):
+    return render(request, 'web/registration/login.html')
+
+
+# Login 상태여야 한다.
+def logout(request, user_id):
+    logout_user = get_object_or_404(User, pk=user_id)
+    return render(request, 'web/mypage.html',{
+        'client_id': user_id,
+        'message': logout_user.date_joined,
         #'session': test_session
     })
-    # return HttpResponseRedirect(reverse('web:mypage', args=(client.id,)))
 
 
 """

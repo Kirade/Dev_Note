@@ -26,17 +26,21 @@ $ - "마지막"! 입니다. 그 뒤로 더이상 문자가 오면 안됩니다.
 
 """
 
-from django.conf.urls import url
+from django.conf.urls import url, include
 
 from . import views
 
 app_name = 'web'
 urlpatterns = [
     url(r'^$', views.IndexView.as_view(), name='index'),
-    url(r'^detail/(?P<pk>[0-9]+)/$', views.ProductView.as_view(), name="detail"),
+    url(r'^(?P<pk>[0-9]+)/detail/$', views.ProductView.as_view(), name="detail"),
     url(r'^intro/$', views.IntroView.as_view(), name="intro"),
     url(r'^board/$', views.BoardView.as_view(), name="board"),
-    url(r'^mypage/(?P<client_id>[0-9]+)/$', views.check_id, name="check_id"),
+    url(r'^register/$', views.UserCreateView.as_view(), name="register"),
+    url(r'^register_ok/$', views.UserCreateDone.as_view(), name="register_ok"),
+    #url('^', include('django.contrib.auth.urls')),
+    url(r'^login/$', views.login, name="login"),
+    url(r'^(?P<user_id>[0-9]+)/logout/$', views.logout, name="logout"),
 #    url(r'^mypage/(?P<pk>[0-9]+)/$', views.MypageView.as_view(), name="mypage"),
 
 ]

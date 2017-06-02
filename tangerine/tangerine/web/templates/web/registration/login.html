@@ -1,0 +1,9 @@
+{% extends 'web/base.html' %}
+
+{% block content %}
+    <form action="{% url 'web:login' %}" method="post">
+    {%  csrf_token %}
+    {{ fomr.as_table }}
+    </form>
+
+{% endblock %}

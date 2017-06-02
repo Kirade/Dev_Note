@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
 class Product(models.Model):
     """
@@ -24,19 +24,15 @@ class Product(models.Model):
         return self.name
 
 
-class Client(models.Model):
+class User(AbstractUser):
     """
-    auth 모듈의 User 모델을 기본적으로 이용하고, 일대일 대응으로 연결한다.
+    기본 장고 User 모델을 상속받아 주소와 연락처 추가한 모델
     address : 기본 배송 주소
     contact : 연락처
     """
-    user = models.OneToOneField(User, on_delete=models.CASCADE, default=1)
-    #user_id = models.CharField(max_length=50)
     address = models.CharField(max_length=100)
     contact = models.CharField(max_length=100)
 
-    def __str__(self):
-        return self.user
 
 
 class Board(models.Model):
@@ -55,3 +51,4 @@ class Board(models.Model):
 
     def __str__(self):
         return self.title
+

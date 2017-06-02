@@ -9,16 +9,22 @@
             <li><a href="{% url 'web:intro' %}">농장 소개</a></li>
             <li><a href="{% url 'web:board' %}">게시판</a></li>
 
-            <!-- 마이페이지 연결 시, 접속한 회원의 클라이언트 ID를 알아내서 밑에 url 태그에 인자로 추가해서 넣어야한다. -->
-            <li><a href="{% url 'web:check_id' 1 %}">마이페이지</a></li>
+            <!-- Mypage 제작 필요 -->
         </ul>
     </nav>
+    <ul>
+        <li><a href="{% url 'web:register' %}">회원가입</a></li>
+        <li><a href="{% url 'web:login' %}">로그인</a></li>
+        <li><a href="{% url 'web:logout' 1 %}">로그아웃</a></li>
+    </ul>
+
+
 
     {% if product_list %}
         <ul>
-        {% for product in product_list %}
-            <li><a href="{% url 'web:detail' product.id %}">{{ product.name }}</a></li>
-        {% endfor %}
+            {% for product in product_list %}
+                <li><a href="{% url 'web:detail' product.id %}">{{ product.name }}</a></li>
+            {% endfor %}
         </ul>
 
     {% else %}
@@ -26,3 +32,4 @@
     {% endif %}
 
 {% endblock content %}
+<ul>
