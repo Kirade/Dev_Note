@@ -8,6 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse, reverse_lazy
 
+
 class IndexView(generic.ListView):
     """
     데이터를 나열하는 것을 포함하지 않는
@@ -70,7 +71,6 @@ class MypageView(generic.DetailView):
 
         )
 """
-
 
 
 def register(request):
