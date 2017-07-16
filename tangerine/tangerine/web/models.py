@@ -25,14 +25,14 @@ class Product(models.Model):
         return self.name
 
 
-# class User(AbstractUser):
-#     """
-#     기본 장고 User 모델을 상속받아 주소와 연락처 추가한 모델
-#     address : 기본 배송 주소
-#     contact : 연락처
-#     """
-#     address = models.CharField(max_length=100)
-#     contact = models.CharField(max_length=100)
+class Account(AbstractUser):
+    """
+    기본 장고 User 모델을 상속받아 주소와 연락처 추가한 모델
+    address : 기본 배송 주소
+    contact : 연락처
+    """
+    address = models.CharField(max_length=100)
+    contact = models.CharField(max_length=100)
 
 
 class Board(models.Model):
