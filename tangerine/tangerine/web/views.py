@@ -17,7 +17,7 @@ class IndexView(generic.ListView):
     template_name = 'web/index.html'
     context_object_name = 'product_list'
 
-    # 제고 수량이 없으면 인덱스 페이지에서 아예 없애는 것이 아니라, 재고 없음으로 표시할 수 있게 만들자
+    # 재고 수량이 없으면 인덱스 페이지에서 아예 없애는 것이 아니라, 재고 없음으로 표시할 수 있게 만들자
     def get_queryset(self):
         return Product.objects.filter(
 
